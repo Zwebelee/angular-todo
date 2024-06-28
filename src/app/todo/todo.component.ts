@@ -10,7 +10,7 @@ import {TodosPipe} from "./todo.pipes";
   templateUrl: './todo.component.html',
   standalone: true,
   imports: [MatCardModule, MatListModule, CommonModule, TodosPipe],
-  styleUrls: ['./todo.componen  t.scss']
+  styleUrls: ['./todo.component.scss']
 })
 
 export class TodoComponent {
