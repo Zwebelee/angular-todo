@@ -4,6 +4,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TodoItem} from "../todo.types";
+import {TodoService} from "../services/todo.service";
 
 @Component({
   selector: 'todo-add',
@@ -18,23 +19,16 @@ import {TodoItem} from "../todo.types";
   styleUrls: ['./todo-add.component.scss']
 })
 
-export class TodoAddComponent implements OnInit{
-  @Output() added = new EventEmitter<TodoItem>();
-  @Input({required: true}) nextId: number = 0;
+export class TodoAddComponent{
   newTodoForm = new FormGroup({
     'description': new FormControl(null, [Validators.required])
   })
-  constructor() {}
+  constructor(private todoService:TodoService) {}
 
-  ngOnInit() {}
 
   onAdd(myForm: FormGroupDirective) {
     if (this.newTodoForm.valid && this.newTodoForm.dirty) {
-      this.added.emit({
-        id: this.nextId,
-        description: this.newTodoForm.value.description ?? '',
-        checked: false,
-      });
+      this.todoService.add(this.newTodoForm.value.description ?? '');
       myForm.resetForm();
     }
   }

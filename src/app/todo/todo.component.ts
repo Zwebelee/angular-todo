@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TodoItem} from "./todo.types";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
@@ -30,17 +30,11 @@ import {TodoService} from "./services/todo.service";
   styleUrls: ['./todo.component.scss']
 })
 
-export class TodoComponent implements OnInit {
-  items: TodoItem[]=[]
-  constructor(private todoService: TodoService) {}
-
-  ngOnInit() {
-    this.todoService.load().subscribe((todos)=> {
-      this.items = todos;
-    })
+export class TodoComponent {
+  constructor(private todoService: TodoService) {
   }
 
-  onAdd(newItem: TodoItem) {
-    this.items.push(newItem);
+  get items(): TodoItem[] {
+    return this.todoService.items;
   }
 }
