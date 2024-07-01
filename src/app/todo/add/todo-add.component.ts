@@ -3,7 +3,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Validators} from "@angular/forms";
-import {TodoItem} from "./todo.types";
+import {TodoItem} from "../todo.types";
 
 @Component({
   selector: 'todo-add',

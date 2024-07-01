@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoItem} from "./todo.types";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
@@ -9,7 +9,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
-import {TodoAddComponent} from "./todo-add.component";
+import {TodoAddComponent} from "./add/todo-add.component";
+import {TodoService} from "./services/todo.service";
 
 @Component({
   selector: 'app-todo',
@@ -29,27 +30,17 @@ import {TodoAddComponent} from "./todo-add.component";
   styleUrls: ['./todo.component.scss']
 })
 
-export class TodoComponent {
-  items: TodoItem[] = [
-    {id: 1, description: 'Buy milk', checked: false},
-    {id: 2, description: 'Clean the house', checked: true},
-    {id: 3, description: 'Go to the gym', checked: true},
-    {id: 4, description: 'Call mom', checked: false},
-    {id: 5, description: 'Read a book', checked: false},
-    {id: 6, description: 'Cook dinner', checked: true},
-    {id: 7, description: 'Walk the dog', checked: false},
-  ]
-
-
-  constructor() {
-  }
+export class TodoComponent implements OnInit {
+  items: TodoItem[]=[]
+  constructor(private todoService: TodoService) {}
 
   ngOnInit() {
+    this.todoService.load().subscribe((todos)=> {
+      this.items = todos;
+    })
   }
 
   onAdd(newItem: TodoItem) {
     this.items.push(newItem);
   }
-
-
 }
