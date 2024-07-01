@@ -3,7 +3,8 @@ import {TodoItem} from "./todo.types";
 
 @Pipe({
   name: 'todos',
-  standalone: true
+  standalone: true,
+  pure: false
   })
 
 export class TodosPipe implements PipeTransform{
